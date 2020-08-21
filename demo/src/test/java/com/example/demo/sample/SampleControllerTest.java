@@ -2,6 +2,9 @@ package com.example.demo.sample;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.example.demo.ApidocumetationTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SampleControllerTest {
+public class SampleControllerTest extends ApidocumetationTest {
 
     @Autowired
     TestRestTemplate testRestTemplate;
