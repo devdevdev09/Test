@@ -1,52 +1,84 @@
-// package com.example.demo.sample;
+package com.example.demo.sample;
 
-// import static org.junit.Assert.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-// import org.junit.Test;
-// import org.junit.runner.RunWith;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.boot.test.web.client.TestRestTemplate;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.test.context.junit4.SpringRunner;
-// import org.springframework.test.web.servlet.MockMvc;
-// import org.springframework.util.LinkedMultiValueMap;
-// import org.springframework.util.MultiValueMap;
+import com.example.demo.ApidocumetationTest;
 
-// @RunWith(SpringRunner.class)
-// @WebMvcTest(SampleController.class)
-// public class SampleControllerTest {
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 
-//     @Autowired
-//     TestRestTemplate testRestTemplate;
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebMvcTest(SampleControllerTest.class)
+public class SampleControllerTest extends ApidocumetationTest {
 
-//     @Autowired
-//     private MockMvc mockMvc;
+    @Autowired
+    TestRestTemplate testRestTemplate;
 
-//     @Test
-//     public void sample1() throws Exception {
-//         // Test1.
-//         // String result = testRestTemplate.getForObject("/sample1", String.class);
+    // @Rule
+    // public final JUnitRestDocumentation restDocumenttation = new JUnitRestDocumentation();
 
-//         // Test2.
-//         // ResponseEntity<String> response = testRestTemplate.getForEntity("/sample1" + "?test=test", String.class);
+    // @Autowired
+    // private WebApplicationContext context;
 
-//         // assertEquals(response.getBody(), "test");
-//         // assertEquals(response.getStatusCode(), HttpStatus.OK);
-//         // assertNotEquals(response.getBody(), "test222");
+    // private MockMvc mockMvc;
 
-//         // Test3.
-//         MultiValueMap<String, String> info = new LinkedMultiValueMap();
+    // @Test
+    // public void sample1() {
+    //     // String result = testRestTemplate.getForObject("/sample1", String.class);
+    //     ResponseEntity<String> response = testRestTemplate.getForEntity("/sample1" + "?test=test", String.class);
 
-//         info.add("test", "heo");
+    //     assertEquals(response.getBody(), "test");
+    //     assertEquals(response.getStatusCode(), HttpStatus.OK);
+    //     assertNotEquals(response.getBody(), "test222");
+    // }
 
-//         this.mockMvc.perform(get("/sample1")
-//             .params(info)
-//             .andExpect(status().isOk())
-//             .andExpect(content().string("heo"))
-//             .andDo(print());
-//     }
-// }
+    // @Before
+    // public void setuUp() {
+    //     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
+    //                 .apply(documentationConfiguration(this.restDocumenttation)).build();
+    // }
+
+	@Test
+	public void sample1(){
+		// this.mockMvc.perform(get("/dddd"))
+		// 	.andExpect(status().isOk())
+		// 	.andDo(document("sampl",
+		// 			links(
+		// 					linkWithRel("test").description("The ALPS profile for the service")),
+		// 			responseFields(
+        // 					subsectionWithPath("_links").description("<<resources_index_access_links,Links>> to other resources"))));
+        
+        ResponseEntity<String> response = testRestTemplate.getForEntity("/sample1", String.class);
+
+        assertEquals(response.getBody(), "test");
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotEquals(response.getBody(), "test222");
+
+    }
+    
+    private MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext context;
+
+    @Rule
+    public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("custom");
+
+}
